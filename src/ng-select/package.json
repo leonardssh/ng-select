@@ -1,6 +1,6 @@
 {
   "name": "@leonardssh/ng-select",
-  "version": "3.2.7",
+  "version": "4.0.5",
   "description": "Angular ng-select - All in One UI Select, Multiselect and Autocomplete",
   "author": "@leonardssh",
   "license": "MIT",
@@ -30,5 +30,8 @@
   },
   "dependencies": {
     "tslib": "^2.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
