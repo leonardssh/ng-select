@@ -12,7 +12,6 @@ import {
     ContentChild,
     TemplateRef,
     ViewEncapsulation,
-    HostListener,
     HostBinding,
     ViewChild,
     ElementRef,
@@ -45,7 +44,7 @@ import {
 import { ConsoleService } from './console.service';
 import { isDefined, isFunction, isPromise, isObject } from './value-utils';
 import { ItemsList } from './items-list';
-import { NgOption, KeyCode, DropdownPosition } from './ng-select.types';
+import { NgOption, DropdownPosition } from './ng-select.types';
 import { newId } from './id';
 import { NgDropdownPanelComponent } from './ng-dropdown-panel.component';
 import { NgOptionComponent } from './ng-option.component';
@@ -106,7 +105,6 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
     @Input() searchWhileComposing = true;
     @Input() minTermLength = 0;
     @Input() editableSearchTerm = false;
-    @Input() keyDownFn = (_: KeyboardEvent) => true;
 
     @Input() @HostBinding('class.ng-select-typeahead') typeahead: Subject<string>;
     @Input() @HostBinding('class.ng-select-multiple') multiple = false;
@@ -287,46 +285,6 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
         this._destroy$.complete();
     }
 
-    @HostListener('keydown', ['$event'])
-    handleKeyDown($event: KeyboardEvent) {
-        const keyCode = KeyCode[$event.which];
-        if (keyCode) {
-            if (this.keyDownFn($event) === false) {
-                return;
-            }
-            this.handleKeyCode($event)
-        } else if ($event.key && $event.key.length === 1) {
-            this._keyPress$.next($event.key.toLocaleLowerCase());
-        }
-    }
-
-    handleKeyCode($event: KeyboardEvent) {
-        switch ($event.which) {
-        case KeyCode.ArrowDown:
-            this._handleArrowDown($event);
-            break;
-        case KeyCode.ArrowUp:
-            this._handleArrowUp($event);
-            break;
-        case KeyCode.Space:
-            this._handleSpace($event);
-            break;
-        case KeyCode.Enter:
-            this._handleEnter($event);
-            break;
-        case KeyCode.Tab:
-            this._handleTab($event);
-            break;
-        case KeyCode.Esc:
-            this.close();
-            $event.preventDefault();
-            break;
-        case KeyCode.Backspace:
-            this._handleBackspace();
-            break
-        }
-    }
-
     handleMousedown($event: MouseEvent) {
         const target = $event.target as HTMLElement;
         if (target.tagName !== 'INPUT') {
@@ -389,7 +347,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
     writeValue(value: any | any[]): void {
         this.itemsList.clearSelected();
         this._handleWriteValue(value);
-        this._cd.markForCheck();
+        this._cd.detectChanges();
     }
 
     registerOnChange(fn: any): void {
@@ -402,7 +360,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
 
     setDisabledState(state: boolean): void {
         this._disabled = state;
-        this._cd.markForCheck();
+        this._cd.detectChanges();
     }
 
     toggle() {
@@ -444,7 +402,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
         this.itemsList.unmarkItem();
         this._onTouched();
         this.closeEvent.emit();
-        this._cd.markForCheck();
+        this._cd.detectChanges();
     }
 
     toggleItem(item: NgOption) {
@@ -757,7 +715,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
                     if (this.isOpen) {
                         this.itemsList.markItem(item);
                         this._scrollToMarked();
-                        this._cd.markForCheck();
+                        this._cd.detectChanges();
                     } else {
                         this.select(item);
                     }
@@ -807,7 +765,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
             this.changeEvent.emit(selected[0]);
         }
 
-        this._cd.markForCheck();
+        this._cd.detectChanges();
     }
 
     private _clearSearch() {
@@ -833,108 +791,11 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
         this.dropdownPanel.scrollTo(this.itemsList.markedItem);
     }
 
-    private _scrollToTag() {
-        if (!this.isOpen || !this.dropdownPanel) {
-            return;
-        }
-        this.dropdownPanel.scrollToTag();
-    }
-
     private _onSelectionChanged() {
         if (this.isOpen && this.multiple && this.appendTo) {
             // Make sure items are rendered.
             this._cd.detectChanges();
             this.dropdownPanel.adjustPosition();
-        }
-    }
-
-    private _handleTab($event: KeyboardEvent) {
-        if (this.isOpen === false && !this.addTag) {
-            return;
-        }
-
-        if (this.selectOnTab) {
-            if (this.itemsList.markedItem) {
-                this.toggleItem(this.itemsList.markedItem);
-                $event.preventDefault();
-            } else if (this.showAddTag) {
-                this.selectTag();
-                $event.preventDefault();
-            } else {
-                this.close();
-            }
-        } else {
-            this.close();
-        }
-    }
-
-    private _handleEnter($event: KeyboardEvent) {
-        if (this.isOpen || this._manualOpen) {
-            if (this.itemsList.markedItem) {
-                this.toggleItem(this.itemsList.markedItem);
-            } else if (this.showAddTag) {
-                this.selectTag();
-            }
-        } else if (this.openOnEnter) {
-            this.open();
-        } else {
-            return;
-        }
-
-        $event.preventDefault();
-    }
-
-    private _handleSpace($event: KeyboardEvent) {
-        if (this.isOpen || this._manualOpen) {
-            return;
-        }
-        this.open();
-        $event.preventDefault();
-    }
-
-    private _handleArrowDown($event: KeyboardEvent) {
-        if (this._nextItemIsTag(+1)) {
-            this.itemsList.unmarkItem();
-            this._scrollToTag();
-        } else {
-            this.itemsList.markNextItem();
-            this._scrollToMarked();
-        }
-        this.open();
-        $event.preventDefault();
-    }
-
-    private _handleArrowUp($event: KeyboardEvent) {
-        if (!this.isOpen) {
-            return;
-        }
-
-        if (this._nextItemIsTag(-1)) {
-            this.itemsList.unmarkItem();
-            this._scrollToTag();
-        } else {
-            this.itemsList.markPreviousItem();
-            this._scrollToMarked();
-        }
-        $event.preventDefault();
-    }
-
-    private _nextItemIsTag(nextStep: number): boolean {
-        const nextIndex = this.itemsList.markedIndex + nextStep;
-        return this.addTag && this.searchTerm
-            && this.itemsList.markedItem
-            && (nextIndex < 0 || nextIndex === this.itemsList.filteredItems.length)
-    }
-
-    private _handleBackspace() {
-        if (this.searchTerm || !this.clearable || !this.clearOnBackspace || !this.hasValue) {
-            return;
-        }
-
-        if (this.multiple) {
-            this.unselect(this.itemsList.lastSelectedItem);
-        } else {
-            this.clearModel();
         }
     }
 

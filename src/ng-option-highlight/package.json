@@ -1,11 +1,14 @@
 {
-  "name": "@ng-select/ng-option-highlight",
+  "name": "@leonardssh/ng-option-highlight",
   "version": "0.0.6",
-  "author": "@ng-select/ng-select",
+  "author": "@leonardssh/ng-select",
   "license": "MIT",
-  "repository": "ng-select/ng-select",
+  "repository": "leonardssh/ng-select",
   "peerDependencies": {
     "@angular/common": ">=13.0.0 <14.0.0",
     "@angular/core": ">=13.0.0 <14.0.0"
-  }
+  },
+  "publishConfig": {
+		"access": "public"
+	}
 }

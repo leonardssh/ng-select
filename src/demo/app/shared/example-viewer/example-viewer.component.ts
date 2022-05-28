@@ -43,7 +43,7 @@ export class ExampleViewerComponent implements OnInit {
     }
 
     get sourcePath() {
-        return `https://github.com/ng-select/ng-select/tree/master/src/demo/app/examples/${this.example}`;
+        return `https://github.com/leonardssh/ng-select/tree/master/src/demo/app/examples/${this.example}`;
     }
 
     ngOnInit() {

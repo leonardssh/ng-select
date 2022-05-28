@@ -11,7 +11,6 @@ import { LayoutHeaderComponent } from './layout/header.component';
 import { LayoutSidenavComponent } from './layout/sidenav-component';
 import { appRoutes } from './routes';
 import { ExampleHostDirective, ExampleViewerComponent } from './shared/example-viewer/example-viewer.component';
-import { StackblitzButtonComponent } from './shared/example-viewer/stackblitz-button/stackblitz-button.component';
 import { RouteViewerComponent } from './shared/route-viewer/route-viewer.component';
 
 @NgModule({
@@ -20,13 +19,10 @@ import { RouteViewerComponent } from './shared/route-viewer/route-viewer.compone
         HttpClientModule,
         ExamplesModule,
         NgbModule,
-        RouterModule.forRoot(
-            appRoutes,
-            {
-    useHash: true,
-    relativeLinkResolution: 'legacy'
-}
-        )
+        RouterModule.forRoot(appRoutes, {
+            useHash: true,
+            relativeLinkResolution: 'legacy'
+        })
     ],
     providers: [
         DataService,
@@ -37,12 +33,9 @@ import { RouteViewerComponent } from './shared/route-viewer/route-viewer.compone
         LayoutHeaderComponent,
         LayoutSidenavComponent,
         ExampleViewerComponent,
-        StackblitzButtonComponent,
         RouteViewerComponent,
     ],
     entryComponents: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
-
+export class AppModule {}
