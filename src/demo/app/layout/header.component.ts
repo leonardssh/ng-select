@@ -10,7 +10,7 @@ type langDir = 'ltr' | 'rtl';
         <nav class="navbar navbar-expand flex-column flex-md-row bd-navbar">
             <a class="navbar-brand" href="#">
                 <img src="https://angular.io/assets/images/logos/angular/angular.svg" width="32px" height="32px"/>
-                @leonardssh/ng-select
+                @libertymp/ng-select
             </a>
             <button class="navbar-toggler"
                     type="button"
@@ -25,11 +25,11 @@ type langDir = 'ltr' | 'rtl';
             <div class="collapse navbar-collapse">
                 <form class="form-inline my-2 my-lg-0">
                     <a class="github-button"
-                       href="https://github.com/leonardssh/ng-select"
+                       href="https://github.com/liberty-mp/ng-select"
                        data-icon="mark-github"
                        data-size="large"
                        data-show-count="true"
-                       aria-label="Visit leonardssh/ng-select on GitHub">Github</a>
+                       aria-label="Visit liberty-mp/ng-select on GitHub">Github</a>
                 </form>
             </div>
         </nav>

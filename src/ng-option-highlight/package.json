@@ -1,9 +1,9 @@
 {
-  "name": "@leonardssh/ng-option-highlight",
+  "name": "@libertymp/ng-option-highlight",
   "version": "5.0.2",
-  "author": "@leonardssh/ng-select",
+  "author": "@libertymp",
   "license": "MIT",
-  "repository": "leonardssh/ng-select",
+  "repository": "liberty-mp/ng-select",
   "peerDependencies": {
     "@angular/common": ">=13.0.0 <14.0.0",
     "@angular/core": ">=13.0.0 <14.0.0"
