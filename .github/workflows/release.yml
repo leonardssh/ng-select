@@ -24,7 +24,6 @@ jobs:
       - name: Install Dependencies
         run: |
           yarn --immutable
-          yarn add --global lerna
 
       - name: Build all packages
         run: yarn build
