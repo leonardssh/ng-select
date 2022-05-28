@@ -1,6 +1,6 @@
 {
   "name": "@leonardssh/ng-option-highlight",
-  "version": "0.0.6",
+  "version": "5.0.0",
   "author": "@leonardssh/ng-select",
   "license": "MIT",
   "repository": "leonardssh/ng-select",
@@ -9,6 +9,6 @@
     "@angular/core": ">=13.0.0 <14.0.0"
   },
   "publishConfig": {
-		"access": "public"
-	}
+    "access": "public"
+  }
 }
