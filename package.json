@@ -14,7 +14,7 @@
     "build:demo": "ng build demo --configuration production --baseHref=/ng-select && yarn copy-examples",
     "build:theme": "sass --style=compressed --no-source-map src/ng-select/themes/default.theme.scss dist/ng-select/themes/default.theme.css",
     "copy-examples": "cp -r src/demo/app/examples dist/demo",
-    "start": "ng serve",
+    "start": "ng serve --port 4202",
     "lint": "ng lint ng-select && ng lint ng-option-highlight",
     "postpublish": "cp dist/ng-select/package.json src/ng-select && cp dist/ng-option-highlight/package.json src/ng-option-highlight",
     "release": "semantic-release",
