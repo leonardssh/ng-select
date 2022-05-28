@@ -1,6 +1,6 @@
 {
   "name": "@leonardssh/ng-select",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "description": "Angular ng-select - All in One UI Select, Multiselect and Autocomplete",
   "author": "@leonardssh",
   "license": "MIT",
@@ -19,14 +19,8 @@
     "angular2"
   ],
   "exports": {
-    "./scss/ant.design.theme": {
-      "style": "./scss/ant.design.theme.scss"
-    },
     "./scss/default.theme": {
       "style": "./scss/default.theme.scss"
-    },
-    "./scss/material.theme": {
-      "style": "./scss/material.theme.scss"
     }
   },
   "peerDependencies": {
