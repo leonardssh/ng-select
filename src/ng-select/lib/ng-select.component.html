@@ -35,7 +35,7 @@
             <input #searchInput
                    [attr.id]="labelForId"
                    [attr.tabindex]="tabIndex"
-                   [readOnly]="!searchable || itemsList.maxItemsSelected"
+                   [readOnly]="true"
                    [disabled]="disabled"
                    [value]="searchTerm ? searchTerm : ''"
                    (input)="filter(searchInput.value)"
