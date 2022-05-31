@@ -296,11 +296,6 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
             return;
         }
 
-        if (target.classList.contains('ng-arrow-wrapper')) {
-            this.handleArrowClick();
-            return;
-        }
-
         if (target.classList.contains('ng-value-icon')) {
             return;
         }
@@ -313,14 +308,6 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
             this.open();
         } else {
             this.toggle();
-        }
-    }
-
-    handleArrowClick() {
-        if (this.isOpen) {
-            this.close();
-        } else {
-            this.open();
         }
     }
 
@@ -439,6 +426,8 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
         if (this.closeOnSelect || this.itemsList.noItemsToSelect) {
             this.close();
         }
+
+        this.detectChanges();
     }
 
     focus() {
@@ -514,10 +503,13 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
 
     onCompositionStart() {
         this._isComposing = true;
+        this.detectChanges();
     }
 
     onCompositionEnd(term: string) {
         this._isComposing = false;
+        this.detectChanges();
+
         if (this.searchWhileComposing) {
             return;
         }
@@ -544,6 +536,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
 
         this.searchEvent.emit({ term, items: this.itemsList.filteredItems.map(x => x.value) });
         this.open();
+        this.detectChanges();
     }
 
     onInputFocus($event) {
@@ -558,6 +551,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
         this.element.classList.add('ng-select-focused');
         this.focusEvent.emit($event);
         this.focused = true;
+        this.detectChanges();
     }
 
     onInputBlur($event) {
@@ -570,6 +564,7 @@ export class NgSelectComponent implements OnDestroy, OnChanges, OnInit, AfterVie
             this._setSearchTermFromItems();
         }
         this.focused = false;
+        this._cd.detectChanges();
     }
 
     onItemHover(item: NgOption) {

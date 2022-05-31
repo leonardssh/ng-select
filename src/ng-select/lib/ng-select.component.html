@@ -35,7 +35,7 @@
             <input #searchInput
                    [attr.id]="labelForId"
                    [attr.tabindex]="tabIndex"
-                   [readOnly]="true"
+                   [readOnly]="!searchable || itemsList.maxItemsSelected"
                    [disabled]="disabled"
                    [value]="searchTerm ? searchTerm : ''"
                    (input)="filter(searchInput.value)"
@@ -61,11 +61,9 @@
     </ng-container>
 
     <span *ngIf="showClear()" class="ng-clear-wrapper" title="{{clearAllText}}">
-        <span class="ng-clear" aria-hidden="true">×</span>
-    </span>
-
-    <span class="ng-arrow-wrapper">
-        <span class="ng-arrow"></span>
+        <span class="ng-clear" aria-hidden="true">
+            <fa-icon [icon]="['fas', 'xmark']"></fa-icon>
+        </span>
     </span>
 </div>
 

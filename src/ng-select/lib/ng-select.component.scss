@@ -45,10 +45,6 @@
                 }
             }
         }
-
-        .ng-arrow-wrapper {
-            cursor: default;
-        }
     }
 
     &.ng-select-filtered {
@@ -169,9 +165,16 @@
 
     .ng-clear-wrapper {
         cursor: pointer;
-        position: relative;
+        position: absolute;
         width: 17px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
         user-select: none;
+        right: 2%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 22.5%;
 
         .ng-clear {
             display: inline-block;
@@ -221,21 +224,6 @@
                 -webkit-transform: rotate(360deg);
                 transform: rotate(360deg);
             }
-        }
-    }
-
-    .ng-arrow-wrapper {
-        cursor: pointer;
-        position: relative;
-        text-align: center;
-        user-select: none;
-
-        .ng-arrow {
-            pointer-events: none;
-            display: inline-block;
-            height: 0;
-            width: 0;
-            position: relative;
         }
     }
 }
