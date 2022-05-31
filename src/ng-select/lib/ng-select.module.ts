@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import { NgDropdownPanelComponent } from './ng-dropdown-panel.component';
 import { NgOptionComponent } from './ng-option.component';
 import { NgSelectComponent, SELECTION_MODEL_FACTORY } from './ng-select.component';
@@ -38,7 +40,8 @@ import { DefaultSelectionModelFactory } from './selection-model';
         NgItemLabelDirective
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        FontAwesomeModule
     ],
     exports: [
         NgSelectComponent,
@@ -59,4 +62,8 @@ import { DefaultSelectionModelFactory } from './selection-model';
         { provide: SELECTION_MODEL_FACTORY, useValue: DefaultSelectionModelFactory }
     ]
 })
-export class NgSelectModule {}
+export class NgSelectModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas);
+    }
+}
