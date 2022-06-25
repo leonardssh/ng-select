@@ -35,7 +35,6 @@ import { RouteViewerComponent } from './shared/route-viewer/route-viewer.compone
         ExampleViewerComponent,
         RouteViewerComponent,
     ],
-    entryComponents: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
