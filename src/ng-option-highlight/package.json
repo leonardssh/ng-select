@@ -5,8 +5,8 @@
   "license": "MIT",
   "repository": "liberty-mp/ng-select",
   "peerDependencies": {
-    "@angular/common": ">=13.0.0 <14.0.0",
-    "@angular/core": ">=13.0.0 <14.0.0"
+    "@angular/common": ">=14.0.0 <15.0.0",
+    "@angular/core": ">=14.0.0 <15.0.0"
   },
   "publishConfig": {
     "access": "public"
