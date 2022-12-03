@@ -20,8 +20,7 @@ import { RouteViewerComponent } from './shared/route-viewer/route-viewer.compone
         ExamplesModule,
         NgbModule,
         RouterModule.forRoot(appRoutes, {
-            useHash: true,
-            relativeLinkResolution: 'legacy'
+            useHash: true
         })
     ],
     providers: [
@@ -37,4 +36,4 @@ import { RouteViewerComponent } from './shared/route-viewer/route-viewer.compone
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
